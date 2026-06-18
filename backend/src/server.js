@@ -109,9 +109,15 @@ function createServer(options = {}) {
   const store = options.store || createStore(options.dataFile);
 
   return http.createServer(async (req, res) => {
-    const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
-    const pathname = decodeURIComponent(url.pathname);
-
+    let url;
+    let pathname;
+    try {
+      url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+      pathname = decodeURIComponent(url.pathname);
+    } catch (error) {
+      sendError(res, 400, "URL invalida.");
+      return;
+    }
     if (req.method === "OPTIONS") {
       sendJson(res, 204, {});
       return;
