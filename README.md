@@ -8,6 +8,9 @@ MVP basico do **SACMed**, um sistema web para agendamento de consultas medicas e
 - Agendamento de consulta por paciente.
 - Validacao de campos obrigatorios e conflito de horario por medico.
 - Cancelamento de consultas agendadas.
+- Filtros de agenda por status e profissional.
+- Conclusao de consulta com prontuario basico.
+- Relatorio administrativo resumido por status e especialidade.
 - Cadastro administrativo simples de especialidades e profissionais via API.
 - Interface web estatica servida pela propria API.
 
@@ -35,8 +38,11 @@ npm test
 | GET | `/api/profissionais` | Lista profissionais |
 | POST | `/api/profissionais` | Cadastra profissional |
 | GET | `/api/consultas` | Lista consultas |
+| GET | `/api/consultas?status=agendada&medicoId=<id>` | Filtra consultas |
 | POST | `/api/consultas` | Agenda consulta |
 | PATCH | `/api/consultas/:id/cancelar` | Cancela consulta |
+| PATCH | `/api/consultas/:id/concluir` | Conclui consulta com prontuario |
+| GET | `/api/relatorios/resumo` | Retorna resumo administrativo |
 
 ## Decisoes de MVP
 
