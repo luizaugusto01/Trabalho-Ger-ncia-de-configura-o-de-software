@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "start": "node backend/src/server.js",
-    "test": "node --test backend/tests/**/*.test.js"
-  },
+    "test": "node --test backend/tests"
+  }
   "engines": {
     "node": ">=18"
   }
