@@ -1,0 +1,9 @@
+{
+  "name": "sacmed-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Frontend estatico do MVP SACMed",
+  "scripts": {
+    "start": "npm --prefix .. start"
+  }
+}

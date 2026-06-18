@@ -1,0 +1,24 @@
+{
+  "especialidades": [
+    "Clinica geral",
+    "Cardiologia",
+    "Dermatologia"
+  ],
+  "profissionais": [
+    {
+      "nome": "Dra. Ana Souza",
+      "crm": "CRM-GO 12345",
+      "especialidade": "Clinica geral"
+    },
+    {
+      "nome": "Dr. Bruno Lima",
+      "crm": "CRM-GO 23456",
+      "especialidade": "Cardiologia"
+    },
+    {
+      "nome": "Dra. Carla Mendes",
+      "crm": "CRM-GO 34567",
+      "especialidade": "Dermatologia"
+    }
+  ]
+}

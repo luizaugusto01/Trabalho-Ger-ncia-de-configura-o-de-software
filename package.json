@@ -1,0 +1,13 @@
+{
+  "name": "sacmed-mvp",
+  "version": "0.1.0",
+  "description": "MVP do SACMed - Sistema de Agendamento de Consultas Medicas",
+  "private": true,
+  "scripts": {
+    "start": "node backend/src/server.js",
+    "test": "node --test $(find backend/tests -type f -name '*.test.js')"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
