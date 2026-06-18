@@ -203,8 +203,8 @@ function createServer(options = {}) {
       }
 
       if (pathname === "/api/consultas" && req.method === "POST") {
-        const data = store.read();
         const body = await readBody(req);
+        const data = store.read();
         const { errors, consulta } = validateConsulta(data, body);
 
         if (errors.length > 0) {
