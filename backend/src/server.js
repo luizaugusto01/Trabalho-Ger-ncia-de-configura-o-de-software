@@ -244,8 +244,15 @@ function createServer(options = {}) {
 
       serveStatic(pathname, res);
     } catch (error) {
-      const message = error.message === "JSON invalido" ? error.message : "Erro interno no servidor";
-      sendError(res, error.message === "JSON invalido" ? 400 : 500, message);
+      if (error.message === "JSON invalido") {
+        sendError(res, 400, "JSON invalido");
+        return;
+      }
+      if (error.message === "Payload muito grande") {
+        sendError(res, 413, "Payload muito grande");
+        return;
+      }
+      sendError(res, 500, "Erro interno no servidor");
     }
   });
 }
