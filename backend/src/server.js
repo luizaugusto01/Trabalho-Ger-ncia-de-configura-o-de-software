@@ -141,8 +141,8 @@ function createServer(options = {}) {
       }
 
       if (pathname === "/api/especialidades" && req.method === "POST") {
-        const data = store.read();
         const body = await readBody(req);
+        const data = store.read();
         const nome = normalizeText(body.nome);
 
         if (!nome) {
