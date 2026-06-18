@@ -261,7 +261,7 @@ function serveStatic(pathname, res) {
   const safePath = pathname === "/" ? "/index.html" : pathname;
   const filePath = path.resolve(publicDir, `.${safePath}`);
 
-  if (!filePath.startsWith(publicDir)) {
+  if (!filePath.startsWith(publicDir + path.sep)) {
     sendError(res, 403, "Acesso negado.");
     return;
   }
