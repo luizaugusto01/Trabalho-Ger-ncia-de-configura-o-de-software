@@ -119,7 +119,12 @@ function createServer(options = {}) {
       return;
     }
     if (req.method === "OPTIONS") {
-      sendJson(res, 204, {});
+      res.writeHead(204, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST,PATCH,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      });
+      res.end();
       return;
     }
 
