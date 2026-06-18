@@ -168,8 +168,8 @@ function createServer(options = {}) {
       }
 
       if (pathname === "/api/profissionais" && req.method === "POST") {
-        const data = store.read();
         const body = await readBody(req);
+        const data = store.read();
         const nome = normalizeText(body.nome);
         const crm = normalizeText(body.crm);
         const especialidadeId = normalizeText(body.especialidadeId);
