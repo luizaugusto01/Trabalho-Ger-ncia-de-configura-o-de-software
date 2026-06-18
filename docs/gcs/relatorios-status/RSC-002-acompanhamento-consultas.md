@@ -22,7 +22,11 @@ Segunda iteracao funcional do SACMed.
 ## Branches e commits
 
 - Branch de trabalho: `feature/acompanhamento-consultas`
-- Padrao de commit planejado: `feat(consultas): adiciona acompanhamento e relatorios`
+- Branch de integracao: `develop`
+- Branch de producao: `main`
+- Padrao de commit planejado:
+  - `feat(consultas): adiciona acompanhamento e relatorios`
+  - `docs(gcs): adapta PR ao git flow definido no PGCS`
 
 ## Resultado dos testes
 

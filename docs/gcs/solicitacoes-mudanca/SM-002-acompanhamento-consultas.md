@@ -10,6 +10,7 @@
 | Prioridade | Media |
 | Status | Aprovada para implementacao |
 | Branch | `feature/acompanhamento-consultas` |
+| Base de integracao | `develop` |
 
 ## Justificativa
 
