@@ -1,0 +1,49 @@
+{
+  "especialidades": [
+    {
+      "id": "esp-clinica-geral",
+      "nome": "Clinica geral"
+    },
+    {
+      "id": "esp-cardiologia",
+      "nome": "Cardiologia"
+    },
+    {
+      "id": "esp-dermatologia",
+      "nome": "Dermatologia"
+    }
+  ],
+  "profissionais": [
+    {
+      "id": "med-ana-souza",
+      "nome": "Dra. Ana Souza",
+      "crm": "CRM-GO 12345",
+      "especialidadeId": "esp-clinica-geral"
+    },
+    {
+      "id": "med-bruno-lima",
+      "nome": "Dr. Bruno Lima",
+      "crm": "CRM-GO 23456",
+      "especialidadeId": "esp-cardiologia"
+    },
+    {
+      "id": "med-carla-mendes",
+      "nome": "Dra. Carla Mendes",
+      "crm": "CRM-GO 34567",
+      "especialidadeId": "esp-dermatologia"
+    }
+  ],
+  "consultas": [
+    {
+      "id": "con-demo-001",
+      "paciente": "Maria Oliveira",
+      "cpf": "12345678900",
+      "especialidadeId": "esp-clinica-geral",
+      "medicoId": "med-ana-souza",
+      "dataHora": "2026-06-22T09:00",
+      "observacoes": "Primeira consulta",
+      "status": "agendada",
+      "criadaEm": "2026-06-18T12:00:00.000Z"
+    }
+  ]
+}

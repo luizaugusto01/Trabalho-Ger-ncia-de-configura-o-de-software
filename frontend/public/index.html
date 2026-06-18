@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SACMed</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">SACMed</p>
+        <h1>Agendamento de consultas</h1>
+      </div>
+      <div class="status" id="api-status">Conectando</div>
+    </header>
+
+    <main class="layout">
+      <section class="panel schedule-panel" aria-labelledby="agendamento-title">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Paciente</p>
+            <h2 id="agendamento-title">Nova consulta</h2>
+          </div>
+        </div>
+
+        <form id="consulta-form" class="form-grid">
+          <label>
+            Nome do paciente
+            <input name="paciente" type="text" autocomplete="name" required>
+          </label>
+
+          <label>
+            CPF
+            <input name="cpf" type="text" inputmode="numeric" maxlength="14" required>
+          </label>
+
+          <label>
+            Especialidade
+            <select name="especialidadeId" id="especialidade-select" required></select>
+          </label>
+
+          <label>
+            Profissional
+            <select name="medicoId" id="medico-select" required></select>
+          </label>
+
+          <label>
+            Data e hora
+            <input name="dataHora" type="datetime-local" required>
+          </label>
+
+          <label class="full">
+            Observacoes
+            <textarea name="observacoes" rows="3"></textarea>
+          </label>
+
+          <div class="actions full">
+            <button type="submit">Agendar consulta</button>
+            <button type="reset" class="secondary">Limpar</button>
+          </div>
+        </form>
+
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="consultas-title">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Clinica</p>
+            <h2 id="consultas-title">Consultas</h2>
+          </div>
+          <button class="secondary compact" id="refresh-button" type="button">Atualizar</button>
+        </div>
+
+        <div id="consultas-list" class="appointment-list"></div>
+      </section>
+
+      <section class="panel admin-panel" aria-labelledby="admin-title">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Administracao</p>
+            <h2 id="admin-title">Cadastros rapidos</h2>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <form id="especialidade-form" class="stack">
+            <label>
+              Nova especialidade
+              <input name="nome" type="text" required>
+            </label>
+            <button type="submit" class="secondary">Cadastrar</button>
+          </form>
+
+          <form id="profissional-form" class="stack">
+            <label>
+              Nome do profissional
+              <input name="nome" type="text" required>
+            </label>
+            <label>
+              CRM
+              <input name="crm" type="text" required>
+            </label>
+            <label>
+              Especialidade
+              <select name="especialidadeId" id="admin-especialidade-select" required></select>
+            </label>
+            <button type="submit" class="secondary">Cadastrar</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
