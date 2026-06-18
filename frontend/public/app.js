@@ -89,11 +89,17 @@ function renderConsultas() {
     title.textContent = consulta.paciente;
     const meta = document.createElement("div");
     meta.className = "appointment-meta";
-    meta.innerHTML = `
-      <span>${formatDate(consulta.dataHora)}</span>
-      <span>${consulta.especialidade} com ${consulta.medico}</span>
-      <span>CPF ${consulta.cpf}</span>
-    `;
+
+    const dateSpan = document.createElement("span");
+    dateSpan.textContent = formatDate(consulta.dataHora);
+
+    const profSpan = document.createElement("span");
+    profSpan.textContent = `${consulta.especialidade} com ${consulta.medico}`;
+
+    const cpfSpan = document.createElement("span");
+    cpfSpan.textContent = `CPF ${consulta.cpf}`;
+
+    meta.append(dateSpan, profSpan, cpfSpan);
     titleWrap.append(title, meta);
 
     const badge = document.createElement("span");
