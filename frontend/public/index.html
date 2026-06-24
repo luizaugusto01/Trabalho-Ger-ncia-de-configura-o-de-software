@@ -73,6 +73,25 @@
           <button class="secondary compact" id="refresh-button" type="button">Atualizar</button>
         </div>
 
+        <div class="summary-grid" id="resumo-cards"></div>
+
+        <div class="filters">
+          <label>
+            Status
+            <select id="status-filter">
+              <option value="">Todos</option>
+              <option value="agendada">Agendadas</option>
+              <option value="realizada">Realizadas</option>
+              <option value="cancelada">Canceladas</option>
+            </select>
+          </label>
+
+          <label>
+            Profissional
+            <select id="medico-filter"></select>
+          </label>
+        </div>
+
         <div id="consultas-list" class="appointment-list"></div>
       </section>
 
@@ -109,6 +128,17 @@
             <button type="submit" class="secondary">Cadastrar</button>
           </form>
         </div>
+      </section>
+
+      <section class="panel admin-panel" aria-labelledby="relatorio-title">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Relatorios</p>
+            <h2 id="relatorio-title">Consultas por especialidade</h2>
+          </div>
+        </div>
+
+        <div id="especialidade-summary" class="specialty-summary"></div>
       </section>
     </main>
 

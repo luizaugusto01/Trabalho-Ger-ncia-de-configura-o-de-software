@@ -212,6 +212,40 @@ button.compact {
   color: var(--primary-strong);
 }
 
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 16px 20px 0;
+}
+
+.summary-card {
+  display: grid;
+  gap: 4px;
+  min-height: 72px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.summary-card strong {
+  font-size: 1.35rem;
+}
+
+.summary-card span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.4fr) minmax(180px, 0.6fr);
+  gap: 12px;
+  padding: 16px 20px 0;
+}
+
 .appointment-list {
   display: grid;
   gap: 12px;
@@ -228,6 +262,11 @@ button.compact {
 
 .appointment.cancelada {
   background: #fafafa;
+}
+
+.appointment.realizada {
+  border-color: #b9dac8;
+  background: #f4fbf7;
 }
 
 .appointment-header {
@@ -264,6 +303,46 @@ button.compact {
   background: #fff5d6;
 }
 
+.badge.realizada {
+  color: #225c3a;
+  background: #dff3e7;
+}
+
+.record-form {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.record-form .actions {
+  justify-content: flex-start;
+}
+
+.specialty-summary {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.specialty-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.specialty-row strong {
+  font-size: 1rem;
+}
+
+.specialty-row span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .empty-state {
   padding: 24px;
   color: var(--muted);
@@ -280,7 +359,9 @@ button.compact {
 
   .layout,
   .form-grid,
-  .admin-grid {
+  .admin-grid,
+  .summary-grid,
+  .filters {
     grid-template-columns: 1fr;
   }
 }

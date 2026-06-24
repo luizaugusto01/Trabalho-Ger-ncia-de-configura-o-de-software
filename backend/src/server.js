@@ -68,6 +68,46 @@ function withRelations(data, consulta) {
   };
 }
 
+function filterConsultas(consultas, url) {
+  const status = normalizeText(url.searchParams.get("status"));
+  const medicoId = normalizeText(url.searchParams.get("medicoId"));
+
+  return consultas.filter((consulta) => {
+    const matchesStatus = !status || consulta.status === status;
+    const matchesMedico = !medicoId || consulta.medicoId === medicoId;
+    return matchesStatus && matchesMedico;
+  });
+}
+
+function buildResumo(data) {
+  const totalPorStatus = data.consultas.reduce((acc, consulta) => {
+    acc[consulta.status] = (acc[consulta.status] || 0) + 1;
+    return acc;
+  }, {});
+
+  const porEspecialidade = data.especialidades.map((especialidade) => {
+    const total = data.consultas.filter((consulta) => consulta.especialidadeId === especialidade.id).length;
+    return { especialidadeId: especialidade.id, nome: especialidade.nome, total };
+  });
+
+  const proximasConsultas = data.consultas
+    .filter((consulta) => consulta.status === "agendada")
+    .map((consulta) => withRelations(data, consulta))
+    .sort((a, b) => a.dataHora.localeCompare(b.dataHora))
+    .slice(0, 5);
+
+  return {
+    totalConsultas: data.consultas.length,
+    totalPorStatus: {
+      agendada: totalPorStatus.agendada || 0,
+      realizada: totalPorStatus.realizada || 0,
+      cancelada: totalPorStatus.cancelada || 0
+    },
+    porEspecialidade,
+    proximasConsultas
+  };
+}
+
 function validateConsulta(data, payload) {
   const errors = [];
   const paciente = normalizeText(payload.paciente);
@@ -130,7 +170,7 @@ function createServer(options = {}) {
 
     try {
       if (pathname === "/api/health" && req.method === "GET") {
-        sendJson(res, 200, { status: "ok", servico: "SACMed API", versao: "0.1.0" });
+        sendJson(res, 200, { status: "ok", servico: "SACMed API", versao: "0.2.0" });
         return;
       }
 
@@ -195,10 +235,16 @@ function createServer(options = {}) {
 
       if (pathname === "/api/consultas" && req.method === "GET") {
         const data = store.read();
-        const consultas = data.consultas
+        const consultas = filterConsultas(data.consultas, url)
           .map((consulta) => withRelations(data, consulta))
           .sort((a, b) => a.dataHora.localeCompare(b.dataHora));
         sendJson(res, 200, consultas);
+        return;
+      }
+
+      if (pathname === "/api/relatorios/resumo" && req.method === "GET") {
+        const data = store.read();
+        sendJson(res, 200, buildResumo(data));
         return;
       }
 
@@ -237,6 +283,45 @@ function createServer(options = {}) {
 
         consulta.status = "cancelada";
         consulta.canceladaEm = new Date().toISOString();
+        store.write(data);
+        sendJson(res, 200, withRelations(data, consulta));
+        return;
+      }
+
+      const concluirMatch = pathname.match(/^\/api\/consultas\/([^/]+)\/concluir$/);
+      if (concluirMatch && req.method === "PATCH") {
+        const data = store.read();
+        const body = await readBody(req);
+        const consulta = data.consultas.find((item) => item.id === concluirMatch[1]);
+
+        if (!consulta) {
+          sendError(res, 404, "Consulta nao encontrada.");
+          return;
+        }
+
+        if (consulta.status !== "agendada") {
+          sendError(res, 400, "Apenas consultas agendadas podem ser concluidas.");
+          return;
+        }
+
+        const resumo = normalizeText(body.resumo);
+        const conduta = normalizeText(body.conduta);
+        const errors = [];
+
+        if (!resumo) errors.push("Informe o resumo do atendimento.");
+        if (!conduta) errors.push("Informe a conduta recomendada.");
+
+        if (errors.length > 0) {
+          sendError(res, 400, "Nao foi possivel concluir a consulta.", errors);
+          return;
+        }
+
+        consulta.status = "realizada";
+        consulta.prontuario = {
+          resumo,
+          conduta,
+          registradoEm: new Date().toISOString()
+        };
         store.write(data);
         sendJson(res, 200, withRelations(data, consulta));
         return;
